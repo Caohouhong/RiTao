@@ -1,0 +1,93 @@
+PODS:
+  - AFNetworking (3.1.0):
+    - AFNetworking/NSURLSession (= 3.1.0)
+    - AFNetworking/Reachability (= 3.1.0)
+    - AFNetworking/Security (= 3.1.0)
+    - AFNetworking/Serialization (= 3.1.0)
+    - AFNetworking/UIKit (= 3.1.0)
+  - AFNetworking/NSURLSession (3.1.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.1.0)
+  - AFNetworking/Security (3.1.0)
+  - AFNetworking/Serialization (3.1.0)
+  - AFNetworking/UIKit (3.1.0):
+    - AFNetworking/NSURLSession
+  - DACircularProgress (2.3.1)
+  - FMDB (2.6.2):
+    - FMDB/standard (= 2.6.2)
+  - FMDB/standard (2.6.2)
+  - IQKeyboardManager (4.0.7)
+  - MBProgressHUD (1.0.0)
+  - MJExtension (3.0.13)
+  - MJRefresh (3.1.12)
+  - MWPhotoBrowser (1.2.1):
+    - DACircularProgress
+    - MBProgressHUD
+    - PSTCollectionView (~> 1.2)
+    - SDWebImage (~> 3.5)
+  - NinaPagerView (1.4.6)
+  - PSTCollectionView (1.2.3)
+  - SDAutoLayout (2.1.7)
+  - SDCycleScrollView (1.65):
+    - SDWebImage (~> 3.7)
+  - SDWebImage (3.8.2):
+    - SDWebImage/Core (= 3.8.2)
+  - SDWebImage-ProgressView (0.3.1):
+    - SDWebImage (~> 3.0)
+  - SDWebImage/Core (3.8.2)
+  - TTGTagCollectionView (1.1.1)
+  - TZImagePickerController (1.7.1)
+  - UITextView+Placeholder (1.2.0)
+  - WHC_Model (1.6.4)
+  - YTKKeyValueStore (0.1.2):
+    - FMDB (~> 2.0)
+  - YTKNetwork (2.0.2):
+    - AFNetworking (~> 3.0)
+
+DEPENDENCIES:
+  - AFNetworking (~> 3.0)
+  - FMDB (~> 2.6.2)
+  - IQKeyboardManager (~> 4.0.7)
+  - MBProgressHUD (~> 1.0.0)
+  - MJExtension (~> 3.0.13)
+  - MJRefresh (~> 3.1.12)
+  - MWPhotoBrowser
+  - NinaPagerView
+  - SDAutoLayout (~> 2.1.7)
+  - SDCycleScrollView (~> 1.65)
+  - SDWebImage (~> 3.8.2)
+  - SDWebImage-ProgressView
+  - TTGTagCollectionView
+  - TZImagePickerController
+  - UITextView+Placeholder (~> 1.2.0)
+  - WHC_Model (~> 1.6.4)
+  - YTKKeyValueStore (~> 0.1.2)
+  - YTKNetwork (~> 2.0.2)
+
+SPEC CHECKSUMS:
+  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
+  FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
+  IQKeyboardManager: 69002bb4fea60596b710e57d426abc00e5063630
+  MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
+  MJExtension: 5932755f451458eefa24239358817f8d291240c7
+  MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
+  MWPhotoBrowser: 7087b4c828297ef34ff2b0892c8e967034a86842
+  NinaPagerView: 0eb3d9a2094d78a4e47eb9fc6231ec915d61fee3
+  PSTCollectionView: 6749df92885353521f55279a7ce2b293762e2be4
+  SDAutoLayout: e9b36d04b8c0b504762a04d76fbbe5108944297a
+  SDCycleScrollView: f72904c77698a7f93a41bcbbc2d78b073bf7326c
+  SDWebImage: '098e97e6176540799c27e804c96653ee0833d13c'
+  SDWebImage-ProgressView: ee42f6f8119d68ac2062920bc9afb0ccfcf2dea1
+  TTGTagCollectionView: 23daa7339ff6fa4a3359bd66b1a20460e3b3e811
+  TZImagePickerController: cbfd57ba947263759b860f74132dd1bc33125afc
+  UITextView+Placeholder: 77680995fcdd07c3f52ec92fe1150874a2ac89ff
+  WHC_Model: 1911e08db84ba886e6fee5ad87cae183921e6a48
+  YTKKeyValueStore: 4d002941540dd5108fa23009b71e0f2f937f7a0f
+  YTKNetwork: d8493ab5dae11f06c44e354a3c8f77698ab5f4b7
+
+PODFILE CHECKSUM: a13e1e559fdad73dbefe63e4531de43ee666fb79
+
+COCOAPODS: 1.1.1
