@@ -7,6 +7,11 @@
 //
 
 #import "TuiKuanJingDuCell.h"
+@interface TuiKuanJingDuCell()
+
+@property (nonatomic, strong) UILabel *label1, *label2;
+
+@end
 
 @implementation TuiKuanJingDuCell
 
@@ -44,6 +49,7 @@
     label1.text = @"售后单号：123123123123";
     label1.textAlignment = NSTextAlignmentLeft;
     [self.contentView addSubview:label1];
+    self.label1 = label1;
     
     UILabel *label2 = [[UILabel alloc] init];
     label2.font = [UIFont systemFontOfSize:12];
@@ -51,6 +57,7 @@
     label2.text = @"申请时间：1234-23-23 23:23:21";
     label2.textAlignment = NSTextAlignmentLeft;
     [self.contentView addSubview:label2];
+    self.label2 = label2;
     
     label1.sd_layout
     .leftSpaceToView(self.contentView,15)
@@ -64,6 +71,7 @@
     .rightSpaceToView(self.contentView,15)
     .heightIs(18);
 }
+
 
 
 @end

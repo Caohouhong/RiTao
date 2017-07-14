@@ -93,8 +93,8 @@
     NSString *imgUrl = @"http://demoerp.rt315.com/RiTaoErpCentral/日淘ERP系统/Images/I_6a7af7e16b864441b334752e191da543日淘商城360.jpg";
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    [params setValue:@"RiTaoErp.Business.Front.Actions.GetProvinceCollectionResult" forKey:@"ResultType"];
-    [params setValue:@"RiTaoErp.Business.Front.Actions.GetProvinceCollectionAction" forKey:@"Action"];
+    [params setValue:@"RiTaoErp.Business.Front.Actions.AddMemberCustomClearResult" forKey:@"ResultType"];
+    [params setValue:@"RiTaoErp.Business.Front.Actions.AddMemberCustomClearAction" forKey:@"Action"];
     [params setValue:AppID forKey:@"AppID"];
     [params setValue:@"cced1f94-426a-4ebc-b773-f306524f0d6a" forKey:@"MemberGuid"];
     [params setValue:nameTextField.text forKey:@"Name"];

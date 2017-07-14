@@ -84,8 +84,10 @@ static NSString *const collectionHeaderID = @"CollectionHeaderView";
     [collectionView registerClass:[SpecialDetailsTopCell class] forCellWithReuseIdentifier:collectiontopID];
 
     [collectionView registerClass:[SpecialDetailsHeadCell class] forCellWithReuseIdentifier:headerViewID];
+    
+     [collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
+    
     [collectionView registerClass:[CollectionHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:collectionHeaderID];
-
 }
 
 -(void)upDataCells {
@@ -137,7 +139,6 @@ static NSString *const collectionHeaderID = @"CollectionHeaderView";
         }
         
         [self upDataCells];
-        [self.collectionView reloadData];
         
     } successBackfailError:^(id responseObject) {
         
@@ -188,25 +189,26 @@ static NSString *const collectionHeaderID = @"CollectionHeaderView";
     NSMutableArray *array = self.cellsArray[indexPath.section];
     NSDictionary *dic = array[indexPath.row];
     
-    if([dic[kCell]isEqualToString:@"SpecialDetailsTopCell"]) {
+    if([dic[kCell] isEqualToString:@"SpecialDetailsTopCell"]) {
         SpecialDetailsTopCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:collectiontopID forIndexPath:indexPath];
         cell.urlStr = self.Mainmodel.TopicDetail.Picture;
         return cell;
     }
 
-    if([dic[kCell]isEqualToString:@"SpecialDetailsHeadCell"]) {
+    if([dic[kCell] isEqualToString:@"SpecialDetailsHeadCell"]) {
         SpecialDetailsHeadCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:headerViewID forIndexPath:indexPath];
         cell.nameLabel.text = dic[kTitle];
         return cell;
     }
-    if([dic[kCell]isEqualToString:@"SpecialDetailsCell"]) {
+    if([dic[kCell] isEqualToString:@"SpecialDetailsCell"]) {
         SpecialDetailsCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:collectionID forIndexPath:indexPath];
         cell.model = dic[kValue];
         return cell;
     }
 
-    return [UICollectionViewCell new];
-
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+    
+    return cell;
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {

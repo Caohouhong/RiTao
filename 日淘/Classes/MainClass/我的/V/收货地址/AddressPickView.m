@@ -152,30 +152,37 @@
 
     
 }
+#pragma mark - 地址确认
 -(void)tapButton:(UIButton*)button
 {
     //点击确定回调block
     if (button.tag == 1) {
-        ModelProvinceCollection *model1 = self.provinceArray[[_pickView selectedRowInComponent:0]];
-        NSString *province = model1.Name;
-        NSString *provinceid = model1.Guid;
-        ModelCityCollection *model2 = self.cityArray[[_pickView selectedRowInComponent:1]];
-        NSString *city = model2.Name;
-        NSString *cityid = model2.Guid;
-        ModelDistrictCollection *model3 = self.districtArray[[_pickView selectedRowInComponent:2]];
-        NSString *town = model3.Name;
-        NSString *townid = model3.Guid;
-//        NSString *province = [self.province objectAtIndex:[_pickView selectedRowInComponent:0]];
-//        NSString *city = [self.city objectAtIndex:[_pickView selectedRowInComponent:1]];
-//        NSString *town = [self.district objectAtIndex:[_pickView selectedRowInComponent:2]];
         
-        _block(province,provinceid,city,cityid,town,townid);
+        NSString *province,*provinceid,*city,*cityid,*town,*townid;
+        
+        if (self.provinceArray.count > 0){
+            ModelProvinceCollection *model1 = self.provinceArray[[_pickView selectedRowInComponent:0]];
+            province = model1.Name;
+            provinceid = model1.Guid;
+        }
+        
+        if (self.cityArray.count > 0){
+            ModelCityCollection *model2 = self.cityArray[[_pickView selectedRowInComponent:1]];
+            city = model2.Name;
+            cityid = model2.Guid;
+        }
+        if (self.districtArray.count > 0){
+            ModelDistrictCollection *model3 = self.districtArray[[_pickView selectedRowInComponent:2]];
+            town = model3.Name;
+            townid = model3.Guid;
+        }
+        
+        if (self.block){
+            self.block(province,provinceid,city?city:@"",cityid,town?town:@"",townid);
+        }
     }
     
     [self hiddenBottomView];
-    
-
-
     
 }
 -(void)showBottomView
@@ -204,7 +211,6 @@
     
      [self requestGetCityCollectionAction:provinceArray];
 }
-
 
 -(void)requestGetCityCollectionAction:(NSMutableArray *)cityArray {
     
@@ -347,6 +353,5 @@
     }
 
 }
-
 
 @end

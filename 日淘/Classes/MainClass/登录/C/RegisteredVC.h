@@ -8,6 +8,8 @@
 
 #import "ChildBaseViewController.h"
 
-@interface RegisteredVC : ChildBaseViewController
+typedef void(^registerSuccessBlock)();
 
+@interface RegisteredVC : ChildBaseViewController
+@property (nonatomic, copy) registerSuccessBlock block;
 @end

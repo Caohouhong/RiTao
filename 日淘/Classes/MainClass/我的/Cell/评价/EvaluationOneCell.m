@@ -44,13 +44,11 @@
     self.iconimage = iconimage;
     
     UILabel *nameLabel = [[UILabel alloc]init];
-    nameLabel.text = @"资生堂男士洗面奶";
     nameLabel.font = TFont(15);
     [self.contentView addSubview:nameLabel];
     self.nameLabel = nameLabel;
     
     UILabel *shopLabel = [[UILabel alloc]init];
-    shopLabel.text = @"商品";
     shopLabel.font = TFont(13);
     shopLabel.textColor = [UIColor lightGrayColor];
     [self.contentView addSubview:shopLabel];
@@ -83,8 +81,7 @@
     
     [self.iconimage sd_setImageWithURL:IMAGE_URL(model.SaleProductPicture) placeholderImage:nil];
     self.nameLabel.text = model.GoodsName;
-//    self.priceLabel.text = [NSString stringWithFormat:@"%@%@",model.SalePrice.MoneySymbol,model.SalePrice.Value];
-//    self.shopLabel.text = model.GeneratedTime;
+    self.shopLabel.text = model.GeneratedTime;
     
 }
 

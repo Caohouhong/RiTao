@@ -8,6 +8,11 @@
 
 #import "TuiKuanTuiHuoCell2.h"
 
+@interface TuiKuanTuiHuoCell2()
+@property (nonatomic, strong) UIImageView *iconImageView;
+@property (nonatomic, strong) UILabel *titleLabel,*xinHaoLabel;
+@end
+
 @implementation TuiKuanTuiHuoCell2
 
 
@@ -42,7 +47,7 @@
     iconImageView.image = [UIImage imageNamed:@"default"];
     iconImageView.backgroundColor = [UIColor lightGrayColor];
     [self.contentView addSubview:iconImageView];
-    
+    self.iconImageView = iconImageView;
     
     UILabel *titleLabel = [[UILabel alloc] init];
     titleLabel.font = [UIFont systemFontOfSize:14];
@@ -50,14 +55,16 @@
     titleLabel.text = @"标题";
     titleLabel.textAlignment = NSTextAlignmentLeft;
     [self.contentView addSubview:titleLabel];
+    self.titleLabel = titleLabel;
     
     
     UILabel *xinHaoLabel = [[UILabel alloc] init];
     xinHaoLabel.font = [UIFont systemFontOfSize:14];
     xinHaoLabel.textColor = HEXCOLOR(0x898989);
-    xinHaoLabel.text = @"型号：15ml*10";
+    xinHaoLabel.text = @"型号：";
     xinHaoLabel.textAlignment = NSTextAlignmentLeft;
     [self.contentView addSubview:xinHaoLabel];
+    self.xinHaoLabel = xinHaoLabel;
     
     iconImageView.sd_layout
     .leftSpaceToView(self.contentView,15)
@@ -76,6 +83,16 @@
     .bottomEqualToView(iconImageView)
     .heightIs(25)
     .rightSpaceToView(self.contentView,15);
+    
+}
+
+- (void)setModel:(AfterSaleSheetCollection *)model
+{
+    _model = model;
+    
+    [self.iconImageView sd_setImageWithURL:IMAGE_URL(model.SaleGoodsPicture) placeholderImage:[UIImage imageNamed:@"default"]];
+    self.titleLabel.text = model.SaleGoodsName;
+    self.xinHaoLabel.text = [NSString stringWithFormat:@"型号: %@",model.SaleGoodsModel];
     
 }
 

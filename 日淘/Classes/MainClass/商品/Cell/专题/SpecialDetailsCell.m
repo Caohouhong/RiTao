@@ -57,7 +57,7 @@
     self.titleLabel = titleLabel;
     
     UILabel *priceLabel = [[UILabel alloc]init];
-    priceLabel.text = @"￥999";
+    priceLabel.text = @"¥0.00";
     priceLabel.textColor = [UIColor redColor];
     priceLabel.font = TFont(18);
     priceLabel.isAttributedContent = YES;
@@ -72,7 +72,7 @@
     [self addSubview:oldpriceLabel];
     self.oldpriceLabel = oldpriceLabel;
     
-    NSString *str = @"￥999";
+    NSString *str = @"¥0.00";
     //显示下划线
     //中划线
     NSDictionary *attribtDic = @{NSStrikethroughStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleSingle]};
@@ -180,10 +180,14 @@
     [self.iconimageView sd_setImageWithURL:IMAGE_URL(model.Picture) placeholderImage:nil];
     self.titleLabel.text = model.Name;
     
-    NSMutableAttributedString *priceAtt = [[NSMutableAttributedString alloc] initWithString:model.Price];
-    [priceAtt setAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12]} range:NSMakeRange(0, 1)];
-    self.priceLabel.attributedText = priceAtt;
-    
+    if (model.Price.length > 1){
+        NSMutableAttributedString *priceAtt = [[NSMutableAttributedString alloc] initWithString:model.Price];
+        [priceAtt setAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12]} range:NSMakeRange(0, 1)];
+        self.priceLabel.attributedText = priceAtt;
+    }else {
+        self.priceLabel.text = @"";
+    }
+
     NSString *str = model.OrignalPrice;
     NSDictionary *attribtDic = @{NSStrikethroughStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleSingle]};
     NSMutableAttributedString *attribtStr = [[NSMutableAttributedString alloc]initWithString:str attributes:attribtDic];
@@ -222,7 +226,7 @@
     [priceAtt setAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12]} range:[priceStr rangeOfString:model2.Price.MoneySymbol]];
     self.priceLabel.attributedText = priceAtt;
     
-    NSString *str = [NSString stringWithFormat:@"%@%@",model2.Price.MoneySymbol,[NSString strWhithFloat:[model2.Price.Value floatValue]]];
+    NSString *str = [NSString stringWithFormat:@"%@%@",model2.MarketPrice.MoneySymbol,[NSString strWhithFloat:[model2.MarketPrice.Value floatValue]]];
     NSDictionary *attribtDic = @{NSStrikethroughStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleSingle]};
     NSMutableAttributedString *attribtStr = [[NSMutableAttributedString alloc]initWithString:str attributes:attribtDic];
     self.oldpriceLabel.attributedText = attribtStr;

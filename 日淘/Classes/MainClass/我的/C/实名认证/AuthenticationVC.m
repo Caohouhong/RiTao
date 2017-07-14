@@ -33,6 +33,12 @@
     
     [self setNav];
     [self initView];
+   
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     [self requestData];
 }
 
@@ -103,6 +109,9 @@
         
         
         LQModelIDCardCollection *lqModelIDCardCollection = [LQModelIDCardCollection mj_objectWithKeyValues:responseObject];
+        
+        
+        
         self.dataArray = [NSMutableArray arrayWithArray:lqModelIDCardCollection.IDCardCollection];
         
         for (ModelIDCardCollection *model in self.dataArray)
@@ -141,6 +150,10 @@
     __weak typeof(self) WeakSelf = self;
     cell.removeBlock = ^(ModelIDCardCollection *model) {
         [WeakSelf requestDeleteMemberData:model];
+    };
+    
+    cell.selectedBlock = ^(ModelIDCardCollection *model){
+         [WeakSelf requestDefaultMemberData:model];
     };
 
     return cell;
@@ -182,7 +195,6 @@
     
     [[LQHTTPSessionManager sharedManager] LQPostParameters:params showTips:@"正在加载..." success:^(id responseObject) {
         
-        
         [self requestData];
         
     } successBackfailError:^(id responseObject) {
@@ -192,27 +204,34 @@
     }];
 }
 
-//#pragma mark - 设为默认
-//- (void)requestDeleteMemberData:(ModelIDCardCollection *)model
-//{
-//    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-//    [params setValue:@"RiTaoErp.Business.Front.Actions.DeleteMemberCustomClearResult" forKey:@"ResultType"];
-//    [params setValue:@"RiTaoErp.Business.Front.Actions.DeleteMemberCustomClearAction" forKey:@"Action"];
-//    [params setValue:@"cced1f94-426a-4ebc-b773-f306524f0d6a" forKey:@"MemberGuid"];
-//    [params setValue:AppID forKey:@"AppID"];
-//    [params setValue:model.Guid forKey:@"IDCard"];
-//    
-//    [[LQHTTPSessionManager sharedManager] LQPostParameters:params showTips:@"正在加载..." success:^(id responseObject) {
-//        
-//        
-//        [self requestData];
-//        
-//    } successBackfailError:^(id responseObject) {
-//        
-//    } failure:^(NSError *error) {
-//        
-//    }];
-//}
+#pragma mark - 设为默认
+
+- (void)requestDefaultMemberData:(ModelIDCardCollection *)model
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setValue:@"RiTaoErp.Business.Front.Actions.UpdateMemberCustomClearResult" forKey:@"ResultType"];
+    [params setValue:@"RiTaoErp.Business.Front.Actions.UpdateMemberCustomClearAction" forKey:@"Action"];
+    [params setValue:@"cced1f94-426a-4ebc-b773-f306524f0d6a" forKey:@"MemberGuid"];
+    [params setValue:AppID forKey:@"AppID"];
+    [params setValue:model.ID forKey:@"IDCard"];
+    [params setValue:model.Name forKey:@"Name"];
+    [params setValue:model.IDCardBackPhoto forKey:@"BackPhotoAddress"];
+    [params setValue:model.IDCardFrontPhoto forKey:@"FrontPhotoAddress"];
+    
+    bool bool_true = true ;
+    [params setValue:@(bool_true) forKey:@"IsDefault"];
+    
+    [[LQHTTPSessionManager sharedManager] LQPostParameters:params showTips:@"正在加载..." success:^(id responseObject) {
+        
+         [LCProgressHUD showSuccess:@"设置成功"];
+        [self requestData];
+        
+    } successBackfailError:^(id responseObject) {
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
 
 
 

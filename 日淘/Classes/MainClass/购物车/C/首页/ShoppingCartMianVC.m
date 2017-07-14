@@ -530,9 +530,23 @@ static NSString *const collectionID = @"SpecialDetailsCell";
  */
 - (void)quJieSuan
 {
-    SettlementCenterVC *vc = [[SettlementCenterVC alloc] init];
-    vc.hidesBottomBarWhenPushed = YES;
-    [DCURLRouter pushViewController:vc animated:YES];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setValue:@"RiTaoErp.Business.Front.Actions.PrepareSaleOrderResult" forKey:@"ResultType"];
+    [params setValue:@"RiTaoErp.Business.Front.Actions.PrepareSaleOrderAction" forKey:@"Action"];
+    [params setValue:@"cced1f94-426a-4ebc-b773-f306524f0d6a" forKey:@"MemberGuid"];
+    [params setValue:AppID forKey:@"AppID"];
+    
+    [[LQHTTPSessionManager sharedManager] LQPostParameters:params showTips:@"正在加载..." success:^(id responseObject) {
+        
+        SettlementCenterVC *vc = [[SettlementCenterVC alloc] init];
+        vc.hidesBottomBarWhenPushed = YES;
+        [DCURLRouter pushViewController:vc animated:YES];
+        
+    } successBackfailError:^(id responseObject) {
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 #pragma mark -
@@ -743,11 +757,6 @@ static NSString *const collectionID = @"SpecialDetailsCell";
         
         ModelWfxMemberShopCartWarehouseCollection *model1 = dic[kValue2];//仓库
         ModelWfxMemberShopCartDeliveryCollection *model2 = dic[kValue2];//包邮
-        
-//        if (model2.IsFreeDelivery)
-//        {
-//            return;
-//        }
         
         ProductListVC *vc = [[ProductListVC alloc] init];
         NSDictionary *dic = @{@"DeliveryFeeGuid":model2.Guid,@"WarehouseGuid":model1.Guid};

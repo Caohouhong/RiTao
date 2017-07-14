@@ -63,7 +63,7 @@
     .heightIs(ScreenWidth*9/16);
     
     
-    CGFloat width = 100*(self.model.TopicProductCollection.count + 1);
+    CGFloat width = ScreenWidth/3.5*(self.model.TopicProductCollection.count + 1);
     UIScrollView *scrollView = [[UIScrollView alloc] init];
     scrollView.contentSize = CGSizeMake(width>ScreenWidth?width:ScreenWidth, 0);
     scrollView.delegate = self;

@@ -398,22 +398,19 @@
     [params setValue:@"RiTaoErp.Business.Front.Actions.AddToFavoriteProductForMemberResult" forKey:@"ResultType"];
     [params setValue:@"RiTaoErp.Business.Front.Actions.AddToFavoriteProductForMemberAction" forKey:@"Action"];
     [params setValue:@"cced1f94-426a-4ebc-b773-f306524f0d6a" forKey:@"MemberGuid"];
-    [params setValue:self.modelSaleProductDetail.ProductGuid forKey:@"SaleProductGuid"];
+    [params setValue:self.modelSaleProductDetail.Guid forKey:@"SaleProductGuid"];
     [params setValue:AppID forKey:@"AppID"];
     
     [[LQHTTPSessionManager sharedManager] LQPostParameters:params showTips:@"正在加载..." success:^(id responseObject) {
         
-        //H 测试  收藏按钮变红（接口问题）
         ModelShouCang *model = [ModelShouCang whc_ModelWithJson:responseObject];
         self.shouCangBtn.selected = model.IsAdd;
-        NSLog(@"---%d", model.IsAdd);
         
     } successBackfailError:^(id responseObject) {
         
     } failure:^(NSError *error) {
         
     }];
-
 }
 
 //添加购物侧

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#define titleArray @[@[@"个人信息", @"我的实名认证", @"我的收获地址", @"消息推送设置", @"消除缓存"],@[@"版本号"]]
+#define titleArray @[@[@"个人信息", @"我的实名认证", @"我的收货地址", @"消息推送设置", @"消除缓存"],@[@"版本号"]]
 
 @interface SettingCell : UITableViewCell
 

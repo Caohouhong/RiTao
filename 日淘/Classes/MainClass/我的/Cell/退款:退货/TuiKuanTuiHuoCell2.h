@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "AfterSaleSheetCollection.h"
 @interface TuiKuanTuiHuoCell2 : UITableViewCell
 
+@property (nonatomic, strong) AfterSaleSheetCollection *model;
 + (TuiKuanTuiHuoCell2 *)cellWithTableView:(UITableView *)tableView;
 
 @end

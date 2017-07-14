@@ -27,6 +27,7 @@ pod 'WHC_Model', '~> 1.6.4'
 pod 'TTGTagCollectionView'
 pod 'TZImagePickerController'
 pod 'MWPhotoBrowser'
+pod 'FDFullscreenPopGesture', '1.1'
 
 end
 

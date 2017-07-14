@@ -56,7 +56,7 @@
     UILabel *titleLabel = [[UILabel alloc] init];
     titleLabel.font = [UIFont systemFontOfSize:12];
     titleLabel.textColor = HEXCOLOR(0x999999);
-    titleLabel.text = @"还差50元可享商家159元包邮";
+    titleLabel.text = @"";
     titleLabel.textAlignment = NSTextAlignmentLeft;
     [self.contentView addSubview:titleLabel];
     self.nameLabel = titleLabel;

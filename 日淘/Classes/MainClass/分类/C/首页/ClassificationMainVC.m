@@ -31,11 +31,24 @@
 @property (nonatomic, strong) TopCategoryCollectionModel *topCategoryCollectionModel;
 @property (nonatomic, assign) NSInteger selectNum;
 @property (nonatomic, weak) UIImageView *headImageView;
+
+//三级请求
+@property (nonatomic, strong) NSMutableArray *requestThreeArray;
+
+@property (nonatomic, assign) int requestNum; //请求次数
 @end
 
 @implementation ClassificationMainVC
 static NSString *const headerViewID = @"ClassCollectionHeaderView.h";
 static NSString *const collectionID = @"ClassCollectionCell.h";
+
+-(NSMutableArray *)requestThreeArray {
+    if(_requestThreeArray == nil) {
+        _requestThreeArray = [NSMutableArray array];
+    }
+    return _requestThreeArray;
+}
+
 
 -(NSMutableArray *)threeArray {
     if(_threeArray == nil) {
@@ -70,9 +83,11 @@ static NSString *const collectionID = @"ClassCollectionCell.h";
     
     
     self.selectNum = 0;
+    self.requestNum = 0;
     
     [self initNav];
     [self initTableView];
+    [self initCollectionView];
     [self initleftData];
     //[self requestSuggestionCategoryPictureResult];
     //[self initCommonData];
@@ -104,11 +119,10 @@ static NSString *const collectionID = @"ClassCollectionCell.h";
             [self.leftArray addObject:model];
         }
         [self.tableView reloadData];
-        [self initCollectionView];
         [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
         
         [self initCommonDataWithGuid:TopLayermodel];
-        [self initHotDataWithGuid:TopLayermodel];
+       
         [self requestSuggestionCategoryPictureResult];
     } successBackfailError:^(id responseObject) {
         
@@ -117,7 +131,7 @@ static NSString *const collectionID = @"ClassCollectionCell.h";
     }];
 }
 
-//右边第一个头部图片
+#pragma mark - 右边第一个头部图片
 -(void)requestSuggestionCategoryPictureResult {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     [params setValue:@"RiTaoErp.Business.Front.Actions.GetSuggestionCategoryPictureResult" forKey:@"ResultType"];
@@ -125,8 +139,8 @@ static NSString *const collectionID = @"ClassCollectionCell.h";
     [params setValue:AppID forKey:@"AppID"];
     
     [[LQHTTPSessionManager sharedManager] LQPostParameters:params showTips:@"正在加载..." success:^(id responseObject) {
-        self.topCategoryCollectionModel = [TopCategoryCollectionModel mj_objectWithKeyValues:responseObject];
-        
+//        self.topCategoryCollectionModel = [TopCategoryCollectionModel mj_objectWithKeyValues:responseObject];
+//        
         ModelSuggestionCategoryPictureResult *model = [ModelSuggestionCategoryPictureResult mj_objectWithKeyValues:responseObject];
         
         [self.headImageView sd_setImageWithURL:IMAGE_URL(model.Value) placeholderImage:nil];
@@ -139,7 +153,7 @@ static NSString *const collectionID = @"ClassCollectionCell.h";
     
 }
 
-//二级分类
+#pragma mark - 二级分类
 -(void)initrightDataWithGuid:(TopLayerCollectionModel *)model {
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
@@ -156,11 +170,20 @@ static NSString *const collectionID = @"ClassCollectionCell.h";
         self.rightArray = [NSMutableArray array];
         self.threeArray = [NSMutableArray array];
         
+        [self.requestThreeArray removeAllObjects];
+        
         for(NSDictionary *dic in self.topCategoryCollectionModel.CategoryCollection) {
             CategoryCollectionModel *model = [CategoryCollectionModel mj_objectWithKeyValues:dic];
-            [self initThreeData:model];
+            
+            //请求三级数据的
+            [self.requestThreeArray addObject:model];
         }
         
+        if (self.requestThreeArray.count > 0){
+            self.requestNum = 0;
+            [self initThreeData:self.requestThreeArray.firstObject];
+        }
+    
         [self.collectionView reloadData];
     } successBackfailError:^(id responseObject) {
         
@@ -169,8 +192,11 @@ static NSString *const collectionID = @"ClassCollectionCell.h";
     }];
 }
 
-//三级分类
+#pragma mark - 三级分类
 -(void)initThreeData:(CategoryCollectionModel *)modelmodel {
+    
+    self.requestNum ++;
+    
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     [params setValue:@"RiTaoErp.Business.Front.Actions.GetCategoryCollectionResult" forKey:@"ResultType"];
     [params setValue:@"RiTaoErp.Business.Front.Actions.GetCategoryCollectionAction" forKey:@"Action"];
@@ -190,10 +216,14 @@ static NSString *const collectionID = @"ClassCollectionCell.h";
         {
             [self.rightArray addObject:modelmodel];
             [self.threeArray addObject:array];
-            
+        }
+        [self.collectionView reloadData];
+        
+        //如果请求的次数少于组数，进行请求
+        if (self.requestNum <  self.requestThreeArray.count){
+            [self initThreeData:self.requestThreeArray[self.requestNum]];
         }
         
-        [self.collectionView reloadData];
     } successBackfailError:^(id responseObject) {
 
     } failure:^(NSError *error) {
@@ -201,7 +231,7 @@ static NSString *const collectionID = @"ClassCollectionCell.h";
     }];
 }
 
-//右边第一组常用
+#pragma mark - 右边第一组常用
 -(void)initCommonDataWithGuid:(TopLayerCollectionModel *)model {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     [params setValue:@"RiTaoErp.Business.Front.Actions.GetCommonUsageCategoryCollectionResult" forKey:@"ResultType"];
@@ -219,14 +249,15 @@ static NSString *const collectionID = @"ClassCollectionCell.h";
         }
         [self.rightFirstArray addObject:commonArray];
         
-        [self.collectionView reloadData];
+        [self initHotDataWithGuid:model];
+        
     } successBackfailError:^(id responseObject) {
         
     } failure:^(NSError *error) {
         
     }];
 }
-//右边第一组热门
+#pragma mark - 右边第一组热门
 -(void)initHotDataWithGuid:(TopLayerCollectionModel *)model {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     [params setValue:@"RiTaoErp.Business.Front.Actions.GetHotUsageCategoryCollectionResult" forKey:@"ResultType"];
@@ -289,13 +320,15 @@ static NSString *const collectionID = @"ClassCollectionCell.h";
 
 -(void)initCollectionView {
     
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
-    //左右间距
-    layout.minimumInteritemSpacing = 10;
-    //上下间距
-    layout.minimumLineSpacing = 10;
     
-    UICollectionView *collectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout];
+    CGFloat ItemWidth = (ScreenWidth-TABLEVIEW_W-28*UIRate)/3.0;
+    CGFloat ItemHeight = ItemWidth + 30*UIRate;
+    UICollectionViewFlowLayout * aLayOut = [[UICollectionViewFlowLayout alloc]init];
+    aLayOut.itemSize = CGSizeMake(ItemWidth, ItemHeight);
+    aLayOut.minimumLineSpacing = 10*UIRate*UIRate;
+    aLayOut.minimumInteritemSpacing = 6*UIRate;
+    
+    UICollectionView *collectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:aLayOut];
     collectionView.backgroundColor = [UIColor whiteColor];
     collectionView.delegate = self;
     collectionView.dataSource = self;
@@ -304,7 +337,7 @@ static NSString *const collectionID = @"ClassCollectionCell.h";
     self.collectionView = collectionView;
     
     collectionView.sd_layout
-    .leftSpaceToView(self.tableView,2)
+    .leftSpaceToView(self.tableView,0)
     .topSpaceToView(self.view,0)
     .rightSpaceToView(self.view,0)
     .bottomSpaceToView(self.view,50);
@@ -368,14 +401,11 @@ static NSString *const collectionID = @"ClassCollectionCell.h";
         [self.rightFirstArray removeAllObjects];
         [self requestSuggestionCategoryPictureResult];
         [self initCommonDataWithGuid:model];
-        [self initHotDataWithGuid:model];
     }else {
         self.headImageView.image = nil;
         [self initrightDataWithGuid:model];
     }
-    
 }
-
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 40;
@@ -424,7 +454,7 @@ static NSString *const collectionID = @"ClassCollectionCell.h";
     }
     CategoryCollectionModel *model = self.threeArray[indexPath.section][indexPath.row];
     ProductListVC *listVC = [[ProductListVC alloc]init];
-    listVC.CategoryGuid = model.ParentGuid;
+    listVC.CategoryGuid = model.Guid;
     listVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:listVC animated:YES];
     
@@ -452,14 +482,14 @@ static NSString *const collectionID = @"ClassCollectionCell.h";
     return CGSizeMake(ScreenWidth, 35);
 }
 
-// cell大小
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    CGFloat flowLayoutW = (ScreenWidth-TABLEVIEW_W-30-2)/3;
-    return CGSizeMake(flowLayoutW, flowLayoutW+30);
-}
+//// cell大小
+//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+//    CGFloat flowLayoutW = (ScreenWidth-TABLEVIEW_W-30-2)/3.0;
+//    return CGSizeMake(flowLayoutW, flowLayoutW+30);
+//}
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    return UIEdgeInsetsMake(0, 5, 0, 5);
+    return UIEdgeInsetsMake(0, 7*UIRate, 0, 7*UIRate);
 }
 
 

@@ -89,10 +89,10 @@
     self.countView = countView;
     
     selectBtn.sd_layout
-    .leftSpaceToView(self.contentView,15)
+    .leftSpaceToView(self.contentView,0)
     .centerYEqualToView(self.contentView)
     .heightIs(50)
-    .widthIs(20);
+    .widthIs(50);
     
     iconImageView.sd_layout
     .leftSpaceToView(selectBtn,10)

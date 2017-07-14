@@ -69,7 +69,7 @@
     self.footerView = footerView;
     
     UILabel *gongLabel = [[UILabel alloc]init];
-    gongLabel.text = @"共2件商品";
+    gongLabel.text = @"共x件商品";
     gongLabel.font = TFont(11);
     //gongLabel.textColor = [UIColor grayColor];
     [self.footerView addSubview:gongLabel];

@@ -14,6 +14,7 @@
 #import "OrderDetailsVC.h"
 #import "ModelCancleOrder.h"
 #import "PayOrderVC.h"
+#import "MainMyOrderVC.h"
 
 
 @interface OrderFootCell()
@@ -53,7 +54,6 @@
     
     UIButton *orderBtn = [[UIButton alloc]init];
     orderBtn.titleLabel.font = TFont(12);
-    [orderBtn setTitle:@"订单跟踪" forState:UIControlStateNormal];
     [orderBtn setTitleColor:COLOR_Gray forState:UIControlStateNormal];
     orderBtn.layer.borderColor = COLOR_Gray.CGColor;
     orderBtn.hidden = YES;
@@ -67,7 +67,6 @@
     shouBtn.titleLabel.font = TFont(12);
     shouBtn.hidden = YES;
     shouBtn.tag = 11;
-    [shouBtn setTitle:@"收货评价" forState:UIControlStateNormal];
     [shouBtn setTitleColor:COLOR_Gray forState:UIControlStateNormal];
     shouBtn.layer.borderColor = COLOR_Gray.CGColor;
     shouBtn.layer.borderWidth = 1;
@@ -79,7 +78,6 @@
     Btn3.titleLabel.font = TFont(12);
     Btn3.hidden = YES;
     Btn3.tag = 10;
-    [Btn3 setTitle:@"收货评价" forState:UIControlStateNormal];
     [Btn3 setTitleColor:COLOR_Gray forState:UIControlStateNormal];
     Btn3.layer.borderColor = COLOR_Gray.CGColor;
     Btn3.layer.borderWidth = 1;
@@ -135,6 +133,7 @@
         OrderDetailsVC *vc = [[OrderDetailsVC alloc] init];
         vc.SaleOrderGuid = self.model.SaleOrderGuid;
         [DCURLRouter pushViewController:vc animated:YES];
+
     }
     if ([btn.titleLabel.text isEqualToString:@"订单跟踪"])
     {
@@ -143,13 +142,13 @@
         [DCURLRouter pushViewController:vc animated:YES];
     }
 
-    //H 测试   立即支付 －－ 订单金额为空
+    //立即支付 －－ 订单金额
     if ([btn.titleLabel.text isEqualToString:@"立即支付"])
     {
         ModelPayOrder *orderModel = [[ModelPayOrder alloc] init];
+        
         orderModel.SaleOrderID = self.model.SaleOrderID;
-        orderModel.TotalAmount.MoneySymbol = self.model.TotalAmount.MoneySymbol;
-        orderModel.TotalAmount.Value = self.model.TotalAmount.Value;
+        orderModel.TotalAmount = self.model.TotalAmount;
         
         PayOrderVC *vc = [[PayOrderVC alloc] init];
         vc.model = orderModel;
@@ -160,6 +159,7 @@
     if ([btn.titleLabel.text isEqualToString:@"确认收货"])
     {
         //待收货的订单消失－到待评价里面－接口
+        [self requestMakeSureReceive];
     }
     
     //暂时取消提醒发货
@@ -210,7 +210,7 @@
     [params setValue:@"RiTaoErp.Business.Front.Actions.CancelSaleOrderResult" forKey:@"ResultType"];
     [params setValue:@"RiTaoErp.Business.Front.Actions.CancelSaleOrderAction" forKey:@"Action"];
     [params setValue:@"cced1f94-426a-4ebc-b773-f306524f0d6a" forKey:@"MemberGuid"];
-    [params setValue:self.model.SaleOrderGuid forKey:@"SaleOrderID"];
+    [params setValue:self.model.SaleOrderID forKey:@"SaleOrderID"];
     [params setValue:@"1" forKey:@"Quantity"];
     [params setValue:AppID forKey:@"AppID"];
     
@@ -235,7 +235,39 @@
     } failure:^(NSError *error) {
         
     }];
+}
+
+- (void)requestMakeSureReceive
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setValue:@"RiTaoErp.Business.Front.Actions.OrderReceivedResult" forKey:@"ResultType"];
+    [params setValue:@"RiTaoErp.Business.Front.Actions.OrderReceivedAction" forKey:@"Action"];
+    [params setValue:@"cced1f94-426a-4ebc-b773-f306524f0d6a" forKey:@"MemberGuid"];
+    [params setValue:self.model.SaleOrderGuid forKey:@"OrderGuid"];
+    [params setValue:AppID forKey:@"AppID"];
     
+    [[LQHTTPSessionManager sharedManager] LQPostParameters:params showTips:@"正在加载..." success:^(id responseObject) {
+        
+        ModelCancleOrder *model = [ModelCancleOrder mj_objectWithKeyValues:responseObject];
+        
+        if (model.IsSuccessful)
+        {
+            [LCProgressHUD showSuccess:@"确认收货成功"];
+            
+            MainMyOrderVC *vc = [[MainMyOrderVC alloc]init];
+            vc.hidesBottomBarWhenPushed = YES;
+            vc.type = 4;
+            [DCURLRouter pushViewController:vc animated:YES];
+            
+        }else{
+            [LCProgressHUD showFailure:model.Message];
+        }
+        
+    } successBackfailError:^(id responseObject) {
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 @end

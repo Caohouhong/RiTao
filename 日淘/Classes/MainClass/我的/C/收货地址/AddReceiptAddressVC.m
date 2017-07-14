@@ -144,6 +144,11 @@
     AddReceiptAddressCell *cell = [AddReceiptAddressCell cellWithTableview:tableView];
     cell.nameLabel.text = titleArray[indexPath.row];
     cell.textfield.placeholder = placeholderArray[indexPath.row];
+    cell.textfield.keyboardType = UIKeyboardTypeDefault;
+    if (indexPath.row == 1){
+        cell.textfield.keyboardType = UIKeyboardTypeNumberPad;
+    }
+    
     if(indexPath.row == 2) {
         cell.textfield.text = self.addressName;
     }

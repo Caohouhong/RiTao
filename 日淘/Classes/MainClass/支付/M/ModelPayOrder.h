@@ -17,8 +17,17 @@
 @property (nonatomic, assign) BOOL IsSuccess;
 @property (nonatomic, strong) ModelTotalAmount *TotalAmount;
 
-
-
+//支付宝支付的签名
 @property (nonatomic, copy) NSString *OrderString;
+
+//微信支付的参数
+@property (nonatomic, copy) NSString *appId;
+@property (nonatomic, copy) NSString *PartnerID;
+@property (nonatomic, copy) NSString *PrepayID;
+@property (nonatomic, copy) NSString *PackageValue;
+@property (nonatomic, copy) NSString *NonceStr;
+@property (nonatomic, copy) NSString *TimeStamp;
+@property (nonatomic, copy) NSString *Sign;
+
 
 @end

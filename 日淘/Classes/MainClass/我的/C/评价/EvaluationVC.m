@@ -76,8 +76,11 @@
     [self.view addSubview:tableview];
     self.tableView = tableview;
     
-    tableview.sd_layout.leftSpaceToView(self.view,0).rightSpaceToView(self.view,0)
-    .topSpaceToView(self.view,0).bottomSpaceToView(self.view,0);
+    tableview.sd_layout
+    .leftSpaceToView(self.view,0)
+    .rightSpaceToView(self.view,0)
+    .topSpaceToView(self.view,0)
+    .bottomSpaceToView(self.view,0);
 }
 
 -(void)clickTijiao

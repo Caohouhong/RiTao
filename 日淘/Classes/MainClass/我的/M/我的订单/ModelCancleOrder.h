@@ -12,5 +12,6 @@
 
 @property (nonatomic, assign) BOOL IsSuccessful;
 @property (nonatomic, copy) NSString *ResponseMessage;
+@property (nonatomic, copy) NSString *Message;
 
 @end

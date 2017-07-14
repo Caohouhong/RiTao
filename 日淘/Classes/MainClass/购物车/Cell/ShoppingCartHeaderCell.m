@@ -58,10 +58,10 @@
     self.titleLabel = titleLabel;
     
     selectBtn.sd_layout
-    .leftSpaceToView(self.contentView,15)
+    .leftSpaceToView(self.contentView,0)
     .centerYEqualToView(self.contentView)
     .heightIs(40)
-    .widthIs(20);
+    .widthIs(50);
     
     titleLabel.sd_layout
     .leftSpaceToView(selectBtn,20)

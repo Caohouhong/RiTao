@@ -8,6 +8,8 @@
 
 #import "LoginVC.h"
 #import "RegisteredVC.h"
+#import "RiTaoHelper.h"
+#import "LoginModel.h"
 
 @interface LoginVC ()
 @property (nonatomic, weak) UITextField *phoneTextfield;
@@ -28,12 +30,14 @@
 
 -(void)initNav {
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTitle:@"注册" target:self action:@selector(zhuce)];
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTitle:@"取消" target:self action:@selector(dismiss)];
+    
 }
 
 -(void)initView {
     
     UIImageView *headImageView = [[UIImageView alloc]init];
-    headImageView.backgroundColor = COLOR_Gray;
+    headImageView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:headImageView];
 
     UIView *phoneView = [self backView];
@@ -123,8 +127,15 @@
     
 }
 
+- (void)dismiss{
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+}
+
 -(void)zhuce {
     RegisteredVC *regVC = [[RegisteredVC alloc]init];
+    regVC.block = ^{
+        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    };
     [self.navigationController pushViewController:regVC animated:YES];
 }
 
@@ -159,8 +170,11 @@
     
     [[LQHTTPSessionManager sharedManager] LQPostParameters:params showTips:@"正在加载..." success:^(id responseObject) {
 
-        [UserDefaults setValue:@"" forKey:@""];
-        [UserDefaults synchronize];
+        LoginModel *model = [LoginModel mj_objectWithKeyValues:responseObject];
+        
+        [RiTaoHelper setLogIn:model];
+        
+        [self dismissViewControllerAnimated:YES completion:nil];
         
     } successBackfailError:^(id responseObject) {
         

@@ -129,7 +129,6 @@
     [[LQHTTPSessionManager sharedManager] LQPostParameters:params showTips:@"正在加载..." success:^(id responseObject) {
 
         [self requestGetMemberAddressCollectionForMemberAction];
-        [self.tableView reloadData];
         
     } successBackfailError:^(id responseObject) {
         
@@ -148,7 +147,6 @@
     [[LQHTTPSessionManager sharedManager] LQPostParameters:params showTips:@"正在加载..." success:^(id responseObject) {
         
         [self requestGetMemberAddressCollectionForMemberAction];
-        [self.tableView reloadData];
         
     } successBackfailError:^(id responseObject) {
         

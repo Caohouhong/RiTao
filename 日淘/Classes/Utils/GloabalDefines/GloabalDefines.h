@@ -84,6 +84,10 @@
 #define COLOR_Red2                    HEXCOLOR(0xe7454d)//红
 
 
+//屏幕适配比列
+#define UIRate                        SCREEN_WIDTH/375.0
+
+
 //T-----S------NO----Delete----
 #define WEAK(weakSelf) __weak typeof(self) weakSelf = self;
 #define TSTRING(string)              (string && (string.length > 0))

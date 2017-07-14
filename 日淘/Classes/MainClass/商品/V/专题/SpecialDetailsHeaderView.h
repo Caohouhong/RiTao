@@ -11,5 +11,6 @@
 @interface SpecialDetailsHeaderView : UICollectionReusableView
 
 @property (nonatomic, weak) UILabel *nameLabel;
+@property (nonatomic, weak) UIImageView *iconimageView;
 
 @end

@@ -34,15 +34,14 @@
     iconimageView.image = GETIMAGE(@"remenfenlei");
     iconimageView.contentMode = UIViewContentModeScaleAspectFit;
     [self addSubview:iconimageView];
+    self.iconimageView = iconimageView;
     
     UILabel *nameLabel = [[UILabel alloc]init];
-    nameLabel.text = @"新生儿专题";
+    nameLabel.text = @"";
     nameLabel.font = TFont(14.0);
     [self addSubview:nameLabel];
     self.nameLabel = nameLabel;
-    
 
-    
     nameLabel.sd_layout
     .centerXEqualToView(self)
     .centerYEqualToView(self)
@@ -54,9 +53,6 @@
     .rightSpaceToView(nameLabel,3)
     .centerYEqualToView(self)
     .widthIs(15).heightIs(15);
-    
-    
-    
 }
 
 

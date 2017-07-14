@@ -41,7 +41,7 @@
     [self addUnderlineWithLeftMargin:10 rightMargin:10 lineHeight:0.5];
     
     UIImageView *iconimage = [[UIImageView alloc]init];
-    iconimage.backgroundColor = [UIColor orangeColor];
+    iconimage.backgroundColor = [UIColor whiteColor];
     [self.contentView addSubview:iconimage];
     self.iconimage = iconimage;
     
@@ -111,11 +111,11 @@
     }
 }
 
-
 -(void)setModel:(ModelSaleOrderGoodsDetailCollection *)model {
     _model = model;
     
-    [self.iconimage sd_setImageWithURL:IMAGE_URL(model.SaleProductPicture) placeholderImage:nil];
+    //H 测试 默认图片没有
+    [self.iconimage sd_setImageWithURL:IMAGE_URL(model.SaleProductPicture) placeholderImage:[UIImage imageNamed:@"待收货"]];
     self.nameLabel.text = model.GoodsName;
     self.priceLabel.text = [NSString stringWithFormat:@"%@%@",model.SalePrice.MoneySymbol,model.SalePrice.Value];
     self.timeLabel.text = model.GeneratedTime;

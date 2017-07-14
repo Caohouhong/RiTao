@@ -7,6 +7,7 @@
 //
 
 #import "RegisteredVC.h"
+#import "RiTaoHelper.h"
 
 @interface RegisteredVC ()
 @property (nonatomic, weak) UITextField *phoneTextfield;
@@ -28,7 +29,7 @@
 }
 
 -(void)initNav {
-    self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTitle:@"登录" target:self action:@selector(denglu)];
+//    self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTitle:@"登录" target:self action:@selector(denglu)];
 }
 
 -(void)initView {
@@ -232,8 +233,16 @@
     
     [[LQHTTPSessionManager sharedManager] LQPostParameters:params showTips:@"正在加载..." success:^(id responseObject) {
         
+        //H 测试，注册成功未返回memberId
         [LCProgressHUD showSuccess:@"注册成功"];
+        
+//        [RiTaoHelper setLogIn:<#(LoginModel *)#>]
+        
         [self.navigationController popViewControllerAnimated:YES];
+        
+        if (self.block){
+            self.block();
+        }
         
     } successBackfailError:^(id responseObject) {
         

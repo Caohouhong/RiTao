@@ -9,6 +9,8 @@
 #import "OrderDetailsXinXiCell.h"
 #import "LogisticsDetailsVC.h"
 #import "ModelCancleOrder.h"
+#import "MainMyOrderVC.h"
+#import "ShengQingTuiKuanVC.h"
 
 @interface OrderDetailsXinXiCell ()
 
@@ -219,8 +221,23 @@
     {
         [LCProgressHUD showSuccess:@"已申请售后"];
     }
+    
+    //确认收货
+    if ([btn.titleLabel.text isEqualToString:@"确认收货"])
+    {
+        [self requestMakeSureReceive];
+    }
+    
+    //申请退款
+    if ([btn.titleLabel.text isEqualToString:@"申请退款"])
+    {
+        ShengQingTuiKuanVC *vc = [[ShengQingTuiKuanVC alloc] init];
+        vc.SaleOrderGuid = self.model.SaleOrderGuid; //产品id
+        //付款标志符和金额
+        vc.payMoney = [NSString stringWithFormat:@"%@%@",self.model.OrderPaymentAmount.MoneySymbol,self.model.OrderPaymentAmount.Value];
+        [DCURLRouter pushViewController:vc animated:YES];
+    }
 }
-
 
 - (void)requestFaHuo
 {
@@ -284,7 +301,41 @@
     } failure:^(NSError *error) {
         
     }];
-    
 }
+
+- (void)requestMakeSureReceive
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setValue:@"RiTaoErp.Business.Front.Actions.OrderReceivedResult" forKey:@"ResultType"];
+    [params setValue:@"RiTaoErp.Business.Front.Actions.OrderReceivedAction" forKey:@"Action"];
+    [params setValue:@"cced1f94-426a-4ebc-b773-f306524f0d6a" forKey:@"MemberGuid"];
+    [params setValue:self.model.SaleOrderGuid forKey:@"OrderGuid"];
+    [params setValue:AppID forKey:@"AppID"];
+    
+    [[LQHTTPSessionManager sharedManager] LQPostParameters:params showTips:@"正在加载..." success:^(id responseObject) {
+        
+        ModelCancleOrder *model = [ModelCancleOrder mj_objectWithKeyValues:responseObject];
+        
+        if (model.IsSuccessful)
+        {
+            [LCProgressHUD showSuccess:@"确认收货成功"];
+            
+            MainMyOrderVC *vc = [[MainMyOrderVC alloc]init];
+            vc.hidesBottomBarWhenPushed = YES;
+            vc.type = 4;
+            [DCURLRouter pushViewController:vc animated:YES];
+            
+        }else{
+            [LCProgressHUD showFailure:model.Message];
+            
+        }
+        
+    } successBackfailError:^(id responseObject) {
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
 
 @end

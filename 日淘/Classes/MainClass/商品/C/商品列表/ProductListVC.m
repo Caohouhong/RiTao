@@ -94,8 +94,8 @@ static NSString *const collectionID = @"SpecialDetailsCell";
     self.navigationItem.title = @"商品列表";
     
     self.StartIndex = 0;
-    self.PriceOrderStr = @"asc";
-    self.PopularityOrderStr = @"asc";
+    self.PriceOrderStr = @"";
+    self.PopularityOrderStr = @"";
     [self requestGetMasterSaleProductCollection];
     [self drawHeaderView];
     
@@ -317,7 +317,7 @@ static NSString *const collectionID = @"SpecialDetailsCell";
     [self.view bringSubviewToFront:self.headerView];
     
     collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefersh)];
-    collectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefersh)];
+    collectionView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefersh)];
     
     
     __weak typeof(self) weakSelf = self;
@@ -407,7 +407,7 @@ static NSString *const collectionID = @"SpecialDetailsCell";
     ModelMasterSaleProductCollection *modelmodel = self.dataArray[indexPath.row];
     
     ProductDetailsVC *vc = [[ProductDetailsVC alloc] init];
-    vc.guid = modelmodel.ProductGuid;
+    vc.guid = modelmodel.Guid;
     vc.hidesBottomBarWhenPushed = YES;
     [DCURLRouter pushViewController:vc animated:YES];
     

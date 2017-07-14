@@ -11,6 +11,7 @@
 #import "PersonalXinXiVC.h"
 #import "AuthenticationVC.h"
 #import "ReceiptAddressVC.h"
+#import "RiTaoHelper.h"
 
 @interface SettingVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, weak) UITableView *tableView;
@@ -76,7 +77,7 @@
     NSMutableArray *arr1 = [NSMutableArray array];
     NSDictionary *dic1_1 = @{kCell:@"SettingProductCell",kTitle:@"个人信息"};
     NSDictionary *dic1_2 = @{kCell:@"SettingProductCell",kTitle:@"我的实名认证"};
-    NSDictionary *dic1_3 = @{kCell:@"SettingProductCell",kTitle:@"我的收获地址"};
+    NSDictionary *dic1_3 = @{kCell:@"SettingProductCell",kTitle:@"我的收货地址"};
     NSDictionary *dic1_4 = @{kCell:@"SettingProductCell",kTitle:@"消息推送设置"};
     NSDictionary *dic1_5 = @{kCell:@"SettingProductCell",kTitle:@"消除缓存"};
     [arr1 addObject:dic1_1];
@@ -97,7 +98,10 @@
 }
 
 -(void)outLigon {
-    NSLog(@"踢出");
+    
+    [RiTaoHelper logout];
+    [LCProgressHUD showMessage:@"已退出当前账号"];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 

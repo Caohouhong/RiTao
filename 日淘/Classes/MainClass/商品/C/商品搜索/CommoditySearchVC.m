@@ -154,7 +154,6 @@
     self.searchText = searchBar.text;
     
     ProductListVC *vc = [[ProductListVC alloc] init];
-    //H 测试  搜索有问题(只有面膜有数据)
     vc.SearchContent = searchBar.text;
     [DCURLRouter pushViewController:vc animated:YES];
     
@@ -180,7 +179,6 @@
     [cell.contentView addGestureRecognizer:tap];
     [cell.contentView addSubview:[self addHistoryViewTagsWithCGRect:CGRectMake(0, 0, ScreenWidth, 44) andIndex:indexPath]];
     return cell;
-
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

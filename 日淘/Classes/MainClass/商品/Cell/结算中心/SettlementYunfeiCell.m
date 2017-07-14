@@ -82,6 +82,8 @@
 {
     _model = model;
     
+    
+    //H 测试  待确认接口问题
     if (model.IsExcludePost)
     {
         self.kuaidiLabel.text = [NSString stringWithFormat:@"快递：¥0"];

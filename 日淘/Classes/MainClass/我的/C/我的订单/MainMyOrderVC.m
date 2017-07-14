@@ -120,8 +120,6 @@
     [self initView];
 }
 
-
-
 -(void)clickquxiao {
     [self.backView removeFromSuperview];
 }
@@ -131,6 +129,7 @@
     NSArray *titleArray = @[@"全部", @"待付款", @"待发货", @"待收货", @"待评价"];
     for (int i = 0; i < titleArray.count; i ++) {
         if(i < 4) {
+            
             MyOrderVC *orderVC = [[MyOrderVC alloc]init];
             orderVC.guid = [NSString stringWithFormat:@"%d",i+1];
             [self.VCArray addObject:orderVC];
@@ -139,7 +138,6 @@
             orderVC.guid = [NSString stringWithFormat:@"%d",i+1];
             [self.VCArray addObject:orderVC];
         }
-
     }
     
     NinaPagerView *ninaPagerView = [[NinaPagerView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight2) WithTitles:titleArray WithVCs:self.VCArray];

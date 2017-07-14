@@ -10,4 +10,6 @@
 
 @interface ShengQingTuiKuanVC : ChildBaseViewController
 
+@property (nonatomic, strong) NSString *SaleOrderGuid;
+@property (nonatomic, strong) NSString *payMoney;
 @end

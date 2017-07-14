@@ -11,6 +11,7 @@
 #import "MyCollectiomMainModel.h"
 #import "ModelMasterSaleProductCollection.h"
 #import "MyCollectiomMainModel.h"
+#import "ProductDetailsVC.h"
 
 @interface MyCollectionVC ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -35,8 +36,8 @@
     
     self.navigationItem.title = @"我的收藏";
     
-    UIBarButtonItem *rightBar = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(didClickRightBar)];
-    self.navigationItem.rightBarButtonItem = rightBar;
+//    UIBarButtonItem *rightBar = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(didClickRightBar)];
+//    self.navigationItem.rightBarButtonItem = rightBar;
     
     self.StartIndex = 0;
     
@@ -62,12 +63,12 @@
     .bottomSpaceToView(self.view,0);
     
     tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefersh)];
-    tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefersh)];
+    tableView.mj_footer = [MJRefreshBackFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefersh)];
 }
 
 - (void)headerRefersh
 {
-    
+    self.StartIndex = 0;
     [self requestData];
 }
 
@@ -149,6 +150,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    ModelMasterSaleProductCollection *model = self.dataArray[indexPath.row];
+    
+    ProductDetailsVC *vc = [[ProductDetailsVC alloc] init];
+    vc.guid = model.Guid;
+    vc.hidesBottomBarWhenPushed = YES;
+    [DCURLRouter pushViewController:vc animated:YES];
+
+    
 }
 
 @end

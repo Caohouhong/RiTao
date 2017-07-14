@@ -8,6 +8,10 @@
 
 #import "TuiKuanTuiHuoCell3.h"
 
+@interface TuiKuanTuiHuoCell3()
+@property (nonatomic, strong) UILabel *titleLabel;
+@end
+
 @implementation TuiKuanTuiHuoCell3
 
 
@@ -44,12 +48,20 @@
     titleLabel.text = @"交易金额￥123    退款金额￥123";
     titleLabel.textAlignment = NSTextAlignmentRight;
     [self.contentView addSubview:titleLabel];
+    self.titleLabel = titleLabel;
     
     titleLabel.sd_layout
     .rightSpaceToView(self.contentView,15)
     .topSpaceToView(self.contentView,5)
-    .widthIs(200)
+    .widthIs(ScreenWidth - 30)
     .heightIs(25);
+}
+
+- (void)setModel:(AfterSaleSheetCollection *)model
+{
+    _model = model;
+    
+    self.titleLabel.text = [NSString stringWithFormat:@"交易金额 %@%@    退款金额 %@%@",model.ReturnAmount.MoneySymbol,model.ReturnAmount.Value,model.PaymentAmount.MoneySymbol,model.PaymentAmount.Value];
 }
 
 @end

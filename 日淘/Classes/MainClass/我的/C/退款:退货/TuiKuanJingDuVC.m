@@ -26,6 +26,8 @@
     
     [self drawView];
     
+    [self requestData];
+    
 }
 
 - (void)drawView
@@ -62,7 +64,7 @@
         return 1;
     }
     
-    return 10;
+    return 5;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -76,8 +78,6 @@
     TuiKuanJingDuCell2 *cell = [TuiKuanJingDuCell2 cellWithTableView:tableView];
     
     return cell;
-    
-    return [UITableViewCell new];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -92,5 +92,29 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 }
+
+#pragma mark - ===========网络==========
+-(void)requestData {
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setValue:@"RiTaoErp.Business.Front.Actions.GetAfterSaleSheetHistoryResult" forKey:@"ResultType"];
+    [params setValue:@"RiTaoErp.Business.Front.Actions.GetAfterSaleSheetHistoryAction" forKey:@"Action"];
+    [params setValue:AppID forKey:@"AppID"];
+    [params setValue:self.model.AfterSaleSheetGuid forKey:@"SaleOrderGoodsGuid"];
+    [params setValue:@"cced1f94-426a-4ebc-b773-f306524f0d6a" forKey:@"MemberGuid"];
+    
+    [[LQHTTPSessionManager sharedManager] LQPostParameters:params showTips:@"正在加载..." success:^(id responseObject) {
+        
+//        self.model = [AfterSaleListModel mj_objectWithKeyValues:responseObject];
+        
+        [self.tableView reloadData];
+        
+    } successBackfailError:^(id responseObject) {
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
 
 @end

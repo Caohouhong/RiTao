@@ -10,4 +10,9 @@
 
 @implementation ModelPayOrder
 
++ (NSDictionary *)mj_replacedKeyFromPropertyName
+{
+    return @{@"appId":@"AppID"};
+}
+
 @end

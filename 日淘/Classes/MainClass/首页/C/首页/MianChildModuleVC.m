@@ -325,8 +325,10 @@ static NSString *const collectionID = @"SpecialDetailsCell";
        [self.cellsArray addObject:@{kCell:@"MainHotClassCell"}];
     }
     
-    [self.cellsArray addObject:@{kCell:@"MainHeadRecommendCell",kValue:@"精选商品 为您推荐"}];
-    
+    if (self.recommendArray.count){
+         [self.cellsArray addObject:@{kCell:@"MainHeadRecommendCell",kValue:@"精选商品 为您推荐"}];
+    }
+   
     for(ModelMasterSaleProductCollection *model in self.recommendArray)
     {
         [self.cellsArray addObject:@{kCell:@"MainRecommendShopCell",kValue:model}];
@@ -447,7 +449,7 @@ static NSString *const collectionID = @"SpecialDetailsCell";
 }
 
 /**
- 获取大家都在卖
+ 获取大家都在买
  */
 - (void)requestGetMasterSaleProductForTopLayerAction
 {
@@ -726,7 +728,14 @@ static NSString *const collectionID = @"SpecialDetailsCell";
     {
         SpecialDetailsHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerViewID forIndexPath:indexPath];
         headerView.backgroundColor = HEXCOLOR(0xeeeeee);
-        headerView.nameLabel.text = @"大家都在买";
+        if (self.weAllBuyArray.count){
+           headerView.nameLabel.text = @"大家都在买";
+           headerView.iconimageView.hidden = NO;
+        }else {
+           headerView.nameLabel.text = @"";
+           headerView.iconimageView.hidden = YES;
+        }
+        
         return headerView;
     }
     else if (kind == UICollectionElementKindSectionFooter)

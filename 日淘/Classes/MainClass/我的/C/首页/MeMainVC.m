@@ -43,6 +43,8 @@
 #import "ModelMainMe.h"
 #import "ModelMemberCenter.h"
 #import "ModelPicture.h"
+#import "RiTaoHelper.h"
+#import "BaseNavigationController.h"
 
 @interface MeMainVC ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -57,159 +59,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
-    self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithImage:@"xiaoxi" target:self action:@selector(login)];
-    self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithImage:@"xiaoxi" target:self action:@selector(login)];
-    
-    UIButton *fankuiBtn = [[UIButton alloc]initWithFrame:CGRectMake(ScreenWidth/2-50, 0, 100, 50)];
-    [fankuiBtn setTitle:@"意见反馈" forState:UIControlStateNormal];
-    [fankuiBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
-    [fankuiBtn addTarget:self action:@selector(yijianfankui) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:fankuiBtn];
-    
-    UIButton *wodedingdanBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 100, 50)];
-    [wodedingdanBtn setTitle:@"我的订单" forState:UIControlStateNormal];
-    [wodedingdanBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
-    [wodedingdanBtn addTarget:self action:@selector(wodedingdan) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:wodedingdanBtn];
-    
-    
-    UIButton *ritaoBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 50, 100, 50)];
-    [ritaoBtn setTitle:@"关于日淘" forState:UIControlStateNormal];
-    [ritaoBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
-    [ritaoBtn addTarget:self action:@selector(guanyuritao) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:ritaoBtn];
-    
-    UIButton *btn1122 = [[UIButton alloc]initWithFrame:CGRectMake(0, 100, 100, 50)];
-    [btn1122 setTitle:@"商品列表" forState:UIControlStateNormal];
-    [btn1122 setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
-    [btn1122 addTarget:self action:@selector(shangpingliebiao) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btn1122];
-    
-    UIButton *pinglunBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 150, 100, 50)];
-    [pinglunBtn setTitle:@"评论详情" forState:UIControlStateNormal];
-    [pinglunBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
-    [pinglunBtn addTarget:self action:@selector(pinglunyemian) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:pinglunBtn];
-    
-    UIButton *settingBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 200, 100, 50)];
-    [settingBtn setTitle:@"设置" forState:UIControlStateNormal];
-    [settingBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
-    [settingBtn addTarget:self action:@selector(shezhi) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:settingBtn];
-    
-    UIButton *ketaoBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 250, 100, 50)];
-    [ketaoBtn setTitle:@"淘客中心" forState:UIControlStateNormal];
-    [ketaoBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
-    [ketaoBtn addTarget:self action:@selector(ketao) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:ketaoBtn];
-    
-    UIButton *liulanBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 300, 100, 50)];
-    [liulanBtn setTitle:@"浏览记录" forState:UIControlStateNormal];
-    [liulanBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
-    [liulanBtn addTarget:self action:@selector(liulanjilu) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:liulanBtn];
-    
-    UIButton *dingdanxiangBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 350, 100, 50)];
-    [dingdanxiangBtn setTitle:@"订单详情" forState:UIControlStateNormal];
-    [dingdanxiangBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
-    [dingdanxiangBtn addTarget:self action:@selector(dingdanxiangBtn) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:dingdanxiangBtn];
-    
-    UIButton *jiesuanBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 400, 100, 50)];
-    [jiesuanBtn setTitle:@"结算中心" forState:UIControlStateNormal];
-    [jiesuanBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
-    [jiesuanBtn addTarget:self action:@selector(jiesuanzhongxin) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:jiesuanBtn];
-    
-    UIButton *userBtn = [[UIButton alloc]initWithFrame:CGRectMake(ScreenWidth/2-50, 50, 100, 50)];
-    [userBtn setTitle:@"我的用户" forState:UIControlStateNormal];
-    [userBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
-    [userBtn addTarget:self action:@selector(wodeyonghu) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:userBtn];
-    
-    UIButton *addressBtn = [[UIButton alloc]initWithFrame:CGRectMake(ScreenWidth/2-50, 100, 100, 50)];
-    [addressBtn setTitle:@"收货地址" forState:UIControlStateNormal];
-    [addressBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
-    [addressBtn addTarget:self action:@selector(address) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:addressBtn];
-    
-    UIButton *nameBtn = [[UIButton alloc]initWithFrame:CGRectMake(ScreenWidth/2-50, 150, 100, 50)];
-    [nameBtn setTitle:@"实名认证" forState:UIControlStateNormal];
-    [nameBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
-    [nameBtn addTarget:self action:@selector(name) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:nameBtn];
-    
-    UIButton *couponsBtn = [[UIButton alloc]initWithFrame:CGRectMake(ScreenWidth/2-50, 200, 100, 50)];
-    [couponsBtn setTitle:@"我的优惠卷" forState:UIControlStateNormal];
-    [couponsBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
-    [couponsBtn addTarget:self action:@selector(coupons) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:couponsBtn];
 
-    UIButton *specialBtn = [[UIButton alloc]initWithFrame:CGRectMake(ScreenWidth/2-50, 250, 100, 50)];
-    [specialBtn setTitle:@"详情页" forState:UIControlStateNormal];
-    [specialBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
-    [specialBtn addTarget:self action:@selector(special) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:specialBtn];
-    
-    UIButton *dingdanBtn = [[UIButton alloc]initWithFrame:CGRectMake(ScreenWidth/2-50, 300, 100, 50)];
-    [dingdanBtn setTitle:@"订单详情" forState:UIControlStateNormal];
-    [dingdanBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
-    [dingdanBtn addTarget:self action:@selector(dingdanxiangqing) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:dingdanBtn];
-
-    
-    UIButton *shouchangBtn = [[UIButton alloc]initWithFrame:CGRectMake(ScreenWidth/2-50, 350, 100, 50)];
-    [shouchangBtn setTitle:@"我的收藏" forState:UIControlStateNormal];
-    [shouchangBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
-    [shouchangBtn addTarget:self action:@selector(wodeshoucang) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:shouchangBtn];
-    
-    UIButton *xiaoshouBtn = [[UIButton alloc]initWithFrame:CGRectMake(ScreenWidth/2-50, 400, 100, 50)];
-    [xiaoshouBtn setTitle:@"销售订单" forState:UIControlStateNormal];
-    [xiaoshouBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
-    [xiaoshouBtn addTarget:self action:@selector(xiaoshoudingdan) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:xiaoshouBtn];
-    
-    UIButton *btn3_1 = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(xiaoshouBtn.frame)+20, 0, 100, 50)];
-    [btn3_1 setTitle:@"退货说明" forState:UIControlStateNormal];
-    [btn3_1 setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
-    [btn3_1 addTarget:self action:@selector(tuihuoshuoming) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btn3_1];
-    
-    UIButton *btn3_2 = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(xiaoshouBtn.frame)+20, 50, 100, 50)];
-    [btn3_2 setTitle:@"运费说明" forState:UIControlStateNormal];
-    [btn3_2 setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
-    [btn3_2 addTarget:self action:@selector(yunfeishuoming) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btn3_2];
-    
-    UIButton *btn3_3 = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(xiaoshouBtn.frame)+20, 100, 100, 50)];
-    [btn3_3 setTitle:@"发货说明" forState:UIControlStateNormal];
-    [btn3_3 setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
-    [btn3_3 addTarget:self action:@selector(fahuoshuoming) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btn3_3];
-    
-    UIButton *btn3_4 = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(xiaoshouBtn.frame)+20, 150, 100, 50)];
-    [btn3_4 setTitle:@"重置密码" forState:UIControlStateNormal];
-    [btn3_4 setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
-    [btn3_4 addTarget:self action:@selector(chongzhimima) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btn3_4];
-    
-    UIButton *btn3_5 = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(xiaoshouBtn.frame)+20, 200, 100, 50)];
-    [btn3_5 setTitle:@"忘记密码" forState:UIControlStateNormal];
-    [btn3_5 setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
-    [btn3_5 addTarget:self action:@selector(wangjimima) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btn3_5];
-    
-//    UIButton *btn3_6 = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(xiaoshouBtn.frame)+20, 250, 100, 50)];
-//    [btn3_6 setTitle:@"评价" forState:UIControlStateNormal];
-//    [btn3_6 setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
-//    [btn3_6 addTarget:self action:@selector(pingjia) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:btn3_6];
-
-   // self.view.backgroundColor = HEXCOLOR(0xf5f2f7);
-    [self requestGetMemberCenterAction];
     [self drawView];
 
 }
@@ -217,11 +67,23 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self requestGetMemberCenterAction];
     
+    [self requestGetMemberCenterAction];
     [self requestMemberCenterPicture];
     
-    self.navigationController.navigationBarHidden = YES;
+    //H 测试 登录
+//    if ([RiTaoHelper IsLogin]){
+//        [self requestGetMemberCenterAction];
+//        [self requestMemberCenterPicture];
+//    }else {
+//     
+//        LoginVC *VC = [[LoginVC alloc]init];
+//        BaseNavigationController *nav = [[BaseNavigationController alloc] initWithRootViewController:VC];
+//        [self presentViewController:nav animated:YES completion:nil];
+////        [self.navigationController pushViewController:VC animated:YES];
+//    }
+        //加上这行代码，侧滑返回时上面的navigationBar 不会瞬间隐藏，有个动画效果。
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
 }
 
 -(void)requestGetMemberCenterAction {
@@ -264,10 +126,6 @@
         
     }];
 }
-
-
-
-
 
 - (void)drawView
 {
@@ -328,7 +186,16 @@
 }
 
 -(void)clickmessagebtn {
-//    [LCProgressHUD showMessage:@"呵 呵"]; 
+    
+    if ([RiTaoHelper IsLogin]){
+        [LCProgressHUD showInfoMsg:[NSString stringWithFormat:@"已经登录了,id是%@",[RiTaoHelper getMemberGuid]]];
+        
+    }else {
+        //H 测试
+        LoginVC *VC = [[LoginVC alloc]init];
+        VC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:VC animated:YES];
+    }
 }
 
 #pragma mark -

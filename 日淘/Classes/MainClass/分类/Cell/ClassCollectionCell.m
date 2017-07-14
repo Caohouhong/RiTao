@@ -17,6 +17,7 @@
 
 -(instancetype)initWithFrame:(CGRect)frame {
     if(self = [super initWithFrame:frame]) {
+        self.backgroundColor = [UIColor whiteColor];
         [self initView];
     }
     return self;
@@ -56,7 +57,6 @@
     
     self.nameLabel.text = model.Name;
     [self.iconImageView sd_setImageWithURL:IMAGE_URL(model.Picture) placeholderImage:nil];
-    
 }
 
 

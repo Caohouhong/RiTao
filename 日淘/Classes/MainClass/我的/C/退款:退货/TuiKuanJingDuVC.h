@@ -7,7 +7,8 @@
 //
 
 #import "ChildBaseViewController.h"
+#import "AfterSaleSheetCollection.h"
 
 @interface TuiKuanJingDuVC : ChildBaseViewController
-
+@property (nonatomic, strong) AfterSaleSheetCollection *model;
 @end

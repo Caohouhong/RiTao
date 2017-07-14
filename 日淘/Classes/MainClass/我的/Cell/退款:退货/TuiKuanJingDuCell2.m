@@ -7,6 +7,9 @@
 //
 
 #import "TuiKuanJingDuCell2.h"
+@interface TuiKuanJingDuCell2()
+@property (nonatomic, strong)UILabel *contentLabel,*timeLabel;
+@end
 
 @implementation TuiKuanJingDuCell2
 
@@ -53,7 +56,7 @@
     contentLabel.text = @"标题标题标题标题标题标题标题标题标题标题标题";
     contentLabel.textAlignment = NSTextAlignmentLeft;
     [self.contentView addSubview:contentLabel];
-    
+    self.contentLabel = contentLabel;
     
     UILabel *timeLabel = [[UILabel alloc] init];
     timeLabel.font = [UIFont systemFontOfSize:12];
@@ -61,6 +64,7 @@
     timeLabel.text = @"2016-12-12 12:12:12";
     timeLabel.textAlignment = NSTextAlignmentLeft;
     [self.contentView addSubview:timeLabel];
+    self.timeLabel = timeLabel;
     
     lineView.sd_layout
     .leftSpaceToView(self.contentView,20)
